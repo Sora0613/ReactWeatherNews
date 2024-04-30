@@ -1,9 +1,7 @@
-/* WeatherCard.css */
 .weather-card-container {
     border: 1px solid #ddd;
     border-radius: 5px;
     padding: 20px;
-    margin-bottom: 20px;
     max-width: 800px;
     margin: 0 auto;
 }
@@ -19,14 +17,42 @@
     margin-bottom: 20px;
 }
 
-.weather-icon {
-    margin-bottom: 20px;
-}
-
 .weather-details {
     margin-bottom: 20px;
 }
 
-.weather-footer {
-    margin-bottom: 20px;
+.weather-today,
+.weather-tomorrow,
+.weather-day-after-tomorrow {
+    display: flex;
+    align-items: center;
+    margin: 30px;
+}
+
+.weather-icon {
+    margin-right: 20px;
+}
+
+.weather-description {
+    text-align: left;
+}
+
+.weather-divider {
+    width: 100%;
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 10px 0;
+}
+
+.weather-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.weather-temp-high .red {
+    color: red;
+}
+
+.weather-temp-low .blue {
+    color: blue;
 }
