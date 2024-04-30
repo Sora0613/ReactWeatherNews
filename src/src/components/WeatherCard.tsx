@@ -8,6 +8,7 @@ import {
   faCloudRain,
   faWind,
 } from "@fortawesome/free-solid-svg-icons";
+import Spinner from "./Spinner";
 
 interface WeatherCardProps {
   cityName: string;
@@ -33,13 +34,22 @@ const WeatherCard = (props: any) => {
     )
       .then((res) => res.json())
       .then((json) => setData(json))
-      .catch(() => alert("error"));
+      .catch(() => console.log("error"));
   }, []);
 
   console.log(data);
 
   if (!data) {
-    return <div>Loading...</div>;
+    return (
+      <div className="weather-card-container">
+        <div className="weather-info">
+          <div className="weather-header">
+            <Spinner />
+            <p>Now Loading...</p>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   const place = data[0].timeSeries[0].areas[0].area.name;
@@ -61,12 +71,20 @@ const WeatherCard = (props: any) => {
           <FontAwesomeIcon icon={faSun} size="5x" />
         </div>
         <div className="weather-details">
-          <p>{today_Weather}</p>
+          <p>
+            今日の{place}の天気：{today_Weather}
+          </p>
+          <p>
+            明日の{place}の天気：{tomorrow_weather}
+          </p>
+          <p>
+            明後日の{place}の天気：{the_day_after_tomorrow_weather}
+          </p>
           <p>最低気温: {min_temp}°C</p>
           <p>最高気温: {max_temp}°C</p>
         </div>
         <div className="weather-footer">
-          <p>Footer</p>
+          <p>2024 &copy; Sora</p>
         </div>
       </div>
     </div>
