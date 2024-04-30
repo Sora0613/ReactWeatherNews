@@ -9,7 +9,7 @@ const HomePage = () => {
       <h1>Weather Forecast</h1>
       <SearchBar />
       <LocationButton />
-      <WeatherCard />
+      <WeatherCard CityCode="270000" />
     </div>
   );
 };
