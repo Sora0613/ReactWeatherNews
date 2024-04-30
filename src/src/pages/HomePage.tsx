@@ -15,3 +15,5 @@ const HomePage = () => {
 };
 
 export default HomePage;
+
+// CityCodeに関しては初期値を東京にし、現在地からCityCodeを割り出して出力するようにしたい。
