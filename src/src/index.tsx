@@ -4,12 +4,13 @@ import "./styles/styles.css";
 import "./styles/WeatherCard.css";
 import "./styles/SearchBar.css";
 import HomePage from "./pages/HomePage";
+import App from "./App";
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement,
+    document.getElementById("root") as HTMLElement,
 );
 root.render(
-  <React.StrictMode>
-    <HomePage />
-  </React.StrictMode>,
+    <React.StrictMode>
+        <App />
+    </React.StrictMode>,
 );
