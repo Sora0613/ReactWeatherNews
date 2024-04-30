@@ -1,0 +1,33 @@
+/* LocationButton.css */
+.search-bar {
+    text-align: center;
+    display: flex;
+    justify-content: center; /* 横方向の中央配置 */
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search-bar input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    font-size: 16px;
+}
+
+.search-bar button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.search-bar button:hover {
+    background-color: #0056b3;
+}
+
+.search-bar button:focus {
+    outline: none;
+}

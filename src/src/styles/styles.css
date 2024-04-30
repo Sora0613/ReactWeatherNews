@@ -1,0 +1,26 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.home-page {
+    text-align: center;
+}
+
+.city-page {
+    text-align: center;
+}
+
+.about-page,
+.contact-page,
+.settings-page {
+    padding: 20px;
+}
