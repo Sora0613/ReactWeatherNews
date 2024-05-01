@@ -4,6 +4,7 @@
     padding: 20px;
     max-width: 800px;
     margin: 0 auto;
+    background-color: #fff; /* ダークモードの背景色 */
 }
 
 .weather-info {
@@ -54,5 +55,5 @@
 }
 
 .weather-temp-low .blue {
-    color: blue;
+    color: #0080ff;
 }
