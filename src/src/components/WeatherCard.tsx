@@ -23,7 +23,8 @@ function getDate() {
 
 function getWeatherIcon(DayWeather: String) {
     let TheWeatherIcon;
-    if (DayWeather.includes("晴")) {
+    TheWeatherIcon = <FontAwesomeIcon icon={faSun} size="5x"/>;
+    /*if (DayWeather.includes("晴")) {
         TheWeatherIcon = <FontAwesomeIcon icon={faSun} size="5x"/>;
     } else if (DayWeather.includes("雨")) {
         TheWeatherIcon = <FontAwesomeIcon icon={faCloudRain} size="5x"/>;
@@ -31,19 +32,23 @@ function getWeatherIcon(DayWeather: String) {
         TheWeatherIcon = <FontAwesomeIcon icon={faCloud} size="5x"/>;
     } else {
         TheWeatherIcon = <FontAwesomeIcon icon={faCloudSun} size="5x"/>;
-    }
+    }*/
     return TheWeatherIcon;
 }
 
-const WeatherCard = (props: WeatherCardProps) => {
+const WeatherCard = (props: WeatherCardProps, cityName: string) => {
     const [currentDate, setCurrentDate] = useState(getDate());
     const [data, setData] = useState<any>();
 
+    const appid = process.env.REACT_APP_OPEN_WEATHER_MAP_API_KEY;
+    const city = props.cityName;
+    const lang = "ja";
+    const units = "metric";
+    const endpoint = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${appid}&lang=${lang}&units=${units}`;
+
     useEffect(() => {
         fetch(
-            "https://www.jma.go.jp/bosai/forecast/data/forecast/" +
-            props.cityName +
-            ".json",
+            endpoint
         )
             .then((res) => res.json())
             .then((json) => setData(json))
@@ -51,6 +56,7 @@ const WeatherCard = (props: WeatherCardProps) => {
     }, [props.cityName]);
 
     console.log(data);
+    console.log(endpoint);
 
     if (!data) {
         return (
@@ -58,18 +64,20 @@ const WeatherCard = (props: WeatherCardProps) => {
         );
     }
 
-    const place = data[0].timeSeries[0].areas[0].area.name;
-    const today_Weather = data[0].timeSeries[0].areas[0].weathers[0];
-    const tomorrow_weather = data[0].timeSeries[0].areas[0].weathers[1];
-    const the_day_after_tomorrow_weather =
-        data[0].timeSeries[0].areas[0].weathers[2];
-    const min_temp = data[1].tempAverage.areas[0].min;
-    const max_temp = data[1].tempAverage.areas[0].max;
+    const place = data.name
+    const today_Weather = data.weather[0].main;
+    const today_Weather_description = data.weather[0].description;
+    const tomorrow_weather = "get明日の天気";
+    const the_day_after_tomorrow_weather = "get明後日の天気";
+    const min_temp = data.main.temp_min;
+    const max_temp = data.main.temp_max;
+    const feels_like = data.main.feels_like;
+    const humidity = data.main.humidity;
 
 
-    let todayWeatherIcon = getWeatherIcon(today_Weather);
+    /*let todayWeatherIcon = getWeatherIcon(today_Weather);
     let tomorrowWeatherIcon = getWeatherIcon(tomorrow_weather);
-    let dayAfterTomorrowWeatherIcon = getWeatherIcon(the_day_after_tomorrow_weather);
+    let dayAfterTomorrowWeatherIcon = getWeatherIcon(the_day_after_tomorrow_weather);*/
 
     return (
         <div className="weather-card-container">
@@ -81,11 +89,12 @@ const WeatherCard = (props: WeatherCardProps) => {
                 <div className="weather-details">
                     <div className="weather-today">
                         <div className="weather-icon">
-                            {todayWeatherIcon}
+                            <FontAwesomeIcon icon={faSun} size="5x"/>
                         </div>
                         <div className="weather-description">
                             <p className="weather-title">今日の{place}の天気：</p>
                             <p>{today_Weather}</p>
+                            <p>{today_Weather_description}</p>
                             <p className="weather-temp-high">最高気温: <span className="red">{max_temp}°C</span></p>
                             <p className="weather-temp-low">最低気温: <span className="blue">{min_temp}°C</span></p>
                         </div>
@@ -93,7 +102,7 @@ const WeatherCard = (props: WeatherCardProps) => {
                     <hr className="weather-divider"/>
                     <div className="weather-tomorrow">
                         <div className="weather-icon">
-                            {tomorrowWeatherIcon}
+                            <FontAwesomeIcon icon={faSun} size="5x"/>
                         </div>
                         <div className="weather-description">
                             <p className="weather-title">明日の{place}の天気：</p>
@@ -103,7 +112,7 @@ const WeatherCard = (props: WeatherCardProps) => {
                     <hr className="weather-divider"/>
                     <div className="weather-day-after-tomorrow">
                         <div className="weather-icon">
-                            {dayAfterTomorrowWeatherIcon}
+                            <FontAwesomeIcon icon={faSun} size="5x"/>
                         </div>
                         <div className="weather-description">
                             <p className="weather-title">明後日の{place}の天気：</p>
