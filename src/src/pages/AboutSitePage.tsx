@@ -8,7 +8,7 @@ const AboutSitePage = () => {
                 <h2>About This Site</h2>
                 <p>各都道府県の今日、明日、明後日の天気を一目で確認することができるWebサイトです。</p>
                 <p>Reactで作りました。</p>
-                <p>APIは気象庁のAPIを使っています。</p>
+                <p>APIはOpenWeatherのAPIを使っています。</p>
             </div>
         </div>
     );
