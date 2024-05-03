@@ -6,7 +6,7 @@ import ToggleSwitch from "../components/ToggleSwitch";
 import {useDarkMode} from "../components/DarkModeContent";
 
 const HomePage = () => {
-    const [cityName, setCityName] = useState("東京");
+    const [cityName, setCityName] = useState("Tokyo");
     const {isDarkMode, toggleDarkMode} = useDarkMode();
 
     const handleSearch = (cityName: string) => {
