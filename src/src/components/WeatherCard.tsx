@@ -1,13 +1,9 @@
 import React, {useEffect, useState} from "react";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {
-    faSun,
-    faCloud,
-    faCloudSun,
-    faCloudRain,
-    faWind, IconDefinition,
-} from "@fortawesome/free-solid-svg-icons";
 import Spinner from "./Spinner";
+import WeatherIcon from "./WeatherIcon";
+import TranslateJapanese from "./TranslateJapanese";
+import FetchData from "./FetchData";
+import {Link} from "react-router-dom";
 
 interface WeatherCardProps {
     cityName: string;
@@ -21,64 +17,33 @@ function getDate() {
     return `${year}年${month}月${date}日`;
 }
 
-function getWeatherIcon(DayWeather: String) {
-    let TheWeatherIcon;
-    TheWeatherIcon = <FontAwesomeIcon icon={faSun} size="5x"/>;
-    /*if (DayWeather.includes("晴")) {
-        TheWeatherIcon = <FontAwesomeIcon icon={faSun} size="5x"/>;
-    } else if (DayWeather.includes("雨")) {
-        TheWeatherIcon = <FontAwesomeIcon icon={faCloudRain} size="5x"/>;
-    } else if (DayWeather.includes("くもり")) {
-        TheWeatherIcon = <FontAwesomeIcon icon={faCloud} size="5x"/>;
-    } else {
-        TheWeatherIcon = <FontAwesomeIcon icon={faCloudSun} size="5x"/>;
-    }*/
-    return TheWeatherIcon;
-}
-
 const WeatherCard = (props: WeatherCardProps, cityName: string) => {
     const [currentDate, setCurrentDate] = useState(getDate());
-    const [data, setData] = useState<any>();
 
+    // basic weather data
     const appid = process.env.REACT_APP_OPEN_WEATHER_MAP_API_KEY;
     const city = props.cityName;
     const lang = "ja";
     const units = "metric";
+
+    // endpoint for today's weather
     const endpoint = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${appid}&lang=${lang}&units=${units}`;
 
-    useEffect(() => {
-        fetch(
-            endpoint
-        )
-            .then((res) => res.json())
-            .then((json) => setData(json))
-            .catch(() => console.log("error"));
-    }, [props.cityName]);
-
-    console.log(data);
-    console.log(endpoint);
-
-    if (!data) {
+    const today_data = FetchData({endpoint, city});
+    if (!today_data) {
         return (
             <Spinner/>
         );
     }
 
-    const place = data.name
-    const today_Weather = data.weather[0].main;
-    const today_Weather_description = data.weather[0].description;
-    const tomorrow_weather = "get明日の天気";
-    const the_day_after_tomorrow_weather = "get明後日の天気";
-    const min_temp = data.main.temp_min;
-    const max_temp = data.main.temp_max;
-    const feels_like = data.main.feels_like;
-    const humidity = data.main.humidity;
+    // values for today's weather
+    const place = today_data.name
+    const TodayWeatherIcon = today_data.weather[0].icon;
+    const min_temp = today_data.main.temp_min;
+    const max_temp = today_data.main.temp_max;
+    const humidity = today_data.main.humidity;
 
-
-    /*let todayWeatherIcon = getWeatherIcon(today_Weather);
-    let tomorrowWeatherIcon = getWeatherIcon(tomorrow_weather);
-    let dayAfterTomorrowWeatherIcon = getWeatherIcon(the_day_after_tomorrow_weather);*/
-
+    // TODO:returnの中身をもっと簡単にしたい。
     return (
         <div className="weather-card-container">
             <div className="weather-info">
@@ -89,38 +54,18 @@ const WeatherCard = (props: WeatherCardProps, cityName: string) => {
                 <div className="weather-details">
                     <div className="weather-today">
                         <div className="weather-icon">
-                            <FontAwesomeIcon icon={faSun} size="5x"/>
+                            <WeatherIcon icon={TodayWeatherIcon}/>
                         </div>
                         <div className="weather-description">
                             <p className="weather-title">今日の{place}の天気：</p>
-                            <p>{today_Weather}</p>
-                            <p>{today_Weather_description}</p>
+                            <p><TranslateJapanese icon={TodayWeatherIcon}/></p>
+                            <p>湿度：{humidity}%</p>
                             <p className="weather-temp-high">最高気温: <span className="red">{max_temp}°C</span></p>
                             <p className="weather-temp-low">最低気温: <span className="blue">{min_temp}°C</span></p>
                         </div>
                     </div>
-                    <hr className="weather-divider"/>
-                    <div className="weather-tomorrow">
-                        <div className="weather-icon">
-                            <FontAwesomeIcon icon={faSun} size="5x"/>
-                        </div>
-                        <div className="weather-description">
-                            <p className="weather-title">明日の{place}の天気：</p>
-                            <p>{tomorrow_weather}</p>
-                        </div>
-                    </div>
-                    <hr className="weather-divider"/>
-                    <div className="weather-day-after-tomorrow">
-                        <div className="weather-icon">
-                            <FontAwesomeIcon icon={faSun} size="5x"/>
-                        </div>
-                        <div className="weather-description">
-                            <p className="weather-title">明後日の{place}の天気：</p>
-                            <p>{the_day_after_tomorrow_weather}</p>
-                        </div>
-                    </div>
-                    <hr className="weather-divider"/>
                 </div>
+                <Link to={`/${city}`}>{place}の天気の詳細</Link>
             </div>
         </div>
 
