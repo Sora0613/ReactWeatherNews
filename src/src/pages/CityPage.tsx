@@ -4,6 +4,8 @@ import FetchData from "../components/FetchData";
 import Spinner from "../components/Spinner";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSun} from "@fortawesome/free-solid-svg-icons";
+import TranslateJapanese from "../components/TranslateJapanese";
+import WeatherIcon from "../components/WeatherIcon";
 
 const CityPage = () => {
     const appid = process.env.REACT_APP_OPEN_WEATHER_MAP_API_KEY;
@@ -21,10 +23,18 @@ const CityPage = () => {
         );
     }
 
-    const place = forecast_data["city"]["name"];
+    // 今日の天気
+    const todayWeather = forecast_data.list[0];
+    const place = forecast_data.city.name;
+    const todayWeatherIcon = todayWeather.weather[0].icon;
+    const todayWeatherHumidity = todayWeather.main.humidity;
+    const todayWeatherMaxTemp = todayWeather.main.temp_max;
+    const todayWeatherMinTemp = todayWeather.main.temp_min;
 
-    // TODO:以下forecast_dataの中身を確認して、それぞれの変数に変更する。また、トップへ戻るリンクを追加する。
-    // お天気のアイコンは例として晴れを挿入中。
+    // 日付系。
+    const currentDate = new Date().toLocaleDateString();
+    const time = new Date(todayWeather.dt * 1000).toLocaleTimeString();
+
 
     return (
 
@@ -33,15 +43,15 @@ const CityPage = () => {
                 <div className="weather-header">
                     <div className="weather-today">
                         <div className="weather-icon">
-                            <FontAwesomeIcon icon={faSun} size="5x"/>
+                            <WeatherIcon icon={todayWeatherIcon}/>
                         </div>
                         <div className="weather-description">
-                            <p className="weather-title">今日の{place}の天気：</p>
-                            <p>お天気</p>
-                            <p>湿度：しつど%</p>
-                            <p className="weather-temp-high">最高気温: <span className="red">max_temp°C</span>
+                            <p className="weather-title">{currentDate} {time}の{place}の天気：</p>
+                            <TranslateJapanese icon={todayWeatherIcon}/>
+                            <p>湿度：{todayWeatherHumidity}%</p>
+                            <p className="weather-temp-high">最高気温: <span className="red">{todayWeatherMaxTemp}°C</span>
                             </p>
-                            <p className="weather-temp-low">最低気温: <span className="blue">min_temp°C</span>
+                            <p className="weather-temp-low">最低気温: <span className="blue">{todayWeatherMinTemp}°C</span>
                             </p>
                         </div>
                     </div>
