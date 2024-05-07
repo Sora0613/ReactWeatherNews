@@ -2,6 +2,8 @@ import React from "react";
 import {Link, useParams} from 'react-router-dom';
 import FetchData from "../components/FetchData";
 import Spinner from "../components/Spinner";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faSun} from "@fortawesome/free-solid-svg-icons";
 
 const CityPage = () => {
     const appid = process.env.REACT_APP_OPEN_WEATHER_MAP_API_KEY;
@@ -19,7 +21,10 @@ const CityPage = () => {
         );
     }
 
+    const place = forecast_data["city"]["name"];
+
     // TODO:以下forecast_dataの中身を確認して、それぞれの変数に変更する。また、トップへ戻るリンクを追加する。
+    // お天気のアイコンは例として晴れを挿入中。
 
     return (
 
@@ -28,10 +33,10 @@ const CityPage = () => {
                 <div className="weather-header">
                     <div className="weather-today">
                         <div className="weather-icon">
-                            お天気アイコン
+                            <FontAwesomeIcon icon={faSun} size="5x"/>
                         </div>
                         <div className="weather-description">
-                            <p className="weather-title">今日の『場所』の天気：</p>
+                            <p className="weather-title">今日の{place}の天気：</p>
                             <p>お天気</p>
                             <p>湿度：しつど%</p>
                             <p className="weather-temp-high">最高気温: <span className="red">max_temp°C</span>
@@ -40,27 +45,9 @@ const CityPage = () => {
                             </p>
                         </div>
                     </div>
+                    TODO:ここから明日以降の天気を表示する。JSONから取得できる限りを取得して表示させたい。
                     <hr className="weather-divider"/>
-                    <div className="weather-tomorrow">
-                        <div className="weather-icon">
-                            お天気アイコン
-                        </div>
-                        <div className="weather-description">
-                            <p className="weather-title">明日のplaceの天気：</p>
-                            <p>tomorrow_weather</p>
-                        </div>
-                    </div>
-                    <hr className="weather-divider"/>
-                    <div className="weather-day-after-tomorrow">
-                        <div className="weather-icon">
-                            お天気アイコン
-                        </div>
-                        <div className="weather-description">
-                            <p className="weather-title">明後日のplaceの天気：</p>
-                            <p>the_day_after_tomorrow_weather</p>
-                        </div>
-                    </div>
-                    <hr className="weather-divider"/>
+
                     <Link to="/">トップへ戻る</Link>
                 </div>
             </div>
