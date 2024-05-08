@@ -4,14 +4,17 @@ import SearchBar from "../components/SearchBar";
 import Footer from "../components/Footer";
 import ToggleSwitch from "../components/ToggleSwitch";
 import {useDarkMode} from "../components/DarkModeContent";
+import { toRomaji } from "wanakana";
 
 const HomePage = () => {
     const [cityName, setCityName] = useState("Tokyo");
     const {isDarkMode, toggleDarkMode} = useDarkMode();
 
     const handleSearch = (cityName: string) => {
-        // translate the city name (jpn) to roma-ji
-
+        if (cityName === "") {
+            alert("都市名を入力してください。");
+            return;
+        }
         setCityName(cityName);
     };
 
