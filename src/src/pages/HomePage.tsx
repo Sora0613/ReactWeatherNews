@@ -4,11 +4,10 @@ import SearchBar from "../components/SearchBar";
 import Footer from "../components/Footer";
 import ToggleSwitch from "../components/ToggleSwitch";
 import {useDarkMode} from "../components/DarkModeContent";
-import { toRomaji } from "wanakana";
 
 const HomePage = () => {
     const [cityName, setCityName] = useState("Tokyo");
-    const {isDarkMode, toggleDarkMode} = useDarkMode();
+    const {isDarkMode} = useDarkMode();
 
     const handleSearch = (cityName: string) => {
         if (cityName === "") {
