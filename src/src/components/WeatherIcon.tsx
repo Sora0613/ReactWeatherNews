@@ -6,7 +6,6 @@ import {
     faCloudRain,
     faCloudShowersHeavy,
     faCloudSun,
-    faQuestion,
     faSmog,
     faSnowflake,
     faSun,
