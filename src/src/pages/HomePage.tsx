@@ -7,11 +7,13 @@ import {useDarkMode} from "../components/DarkModeContent";
 
 const HomePage = () => {
     const [cityName, setCityName] = useState("Tokyo");
-    const {isDarkMode, toggleDarkMode} = useDarkMode();
+    const {isDarkMode} = useDarkMode();
 
     const handleSearch = (cityName: string) => {
-        // translate the city name (jpn) to roma-ji
-
+        if (cityName === "") {
+            alert("都市名を入力してください。");
+            return;
+        }
         setCityName(cityName);
     };
 

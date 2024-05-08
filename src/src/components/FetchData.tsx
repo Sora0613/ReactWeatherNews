@@ -1,16 +1,20 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 const FetchData = (props: any) => {
     const [data, setData] = useState<any>();
 
     useEffect(() => {
-        fetch(
-            props.endpoint
-        )
+        fetch(props.endpoint)
             .then((res) => res.json())
-            .then((json) => setData(json))
+            .then((json) => {
+                if (json.cod === "404") {
+                    alert("その都市は存在しません。");
+                } else {
+                    setData(json);
+                }
+            })
             .catch(() => console.log("error"));
-    }, [props.city]);
+    }, [props.endpoint]);
 
     return data;
 };

@@ -39,9 +39,9 @@ const TranslateJapanese = ({icon}: WeatherIconProps) => {
             break;
     }
     return (
-        <div>
+        <>
             {TheWeatherInJapanese}
-        </div>
+        </>
     );
 };
 

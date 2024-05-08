@@ -22,9 +22,7 @@
     margin-bottom: 20px;
 }
 
-.weather-today,
-.weather-tomorrow,
-.weather-day-after-tomorrow {
+.weather-today {
     display: flex;
     align-items: center;
     margin: 30px;

@@ -13,7 +13,6 @@ const SearchBar = (props: SearchBarProps) => {
 
     const handleClick = () => {
         props.onSearch(cityName);
-
         setCityName("");
     };
 
